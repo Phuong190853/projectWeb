@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+
+</style>
+{% for flash in app.flashes('Warning')%}
+    <p class="alert alert-danger"> {{ flash }}</p>
+{% endfor %}
+{% for flash in app.flashes('warn')%}
+    <p class="alert alert-danger"> {{ flash }}</p>
+{% endfor %}
+<h2 class="text-center">Categories</h2>
+<a class="btn btn-outline-success  rounded-circle pb-3 pt-3" href="{{ path ('cat_create') }}">NEW</a>
+<table class="table table-hover text-center mt-5">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Category Name</th>
+        <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for category in categories %}
+            <tr>
+                <th scope="row">{{category.id}}</th>
+                <td scope="row">{{category.catName}}</td>
+                <td scope="row">
+                    <a class="btn btn-primary  fas fa-sync-alt" href="{{ path('cat_update', {'id' : category.id}) }}"></a>
+                    <a class="btn btn-danger fas fa-trash" href="{{ path('cat_delete', {'id' : category.id}) }}" onclick = "return confirm ('Are you sure to delete ?')" ></a>
+                </td>
+            </tr>
+            
+        {% endfor %}
+    </tbody>
+</table>
+			
+{% endblock %}

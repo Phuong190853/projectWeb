@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+
+</style>
+{% for flash in app.flashes('Warning')%}
+    <p class="alert alert-danger"> {{ flash }}</p>
+{% endfor %}
+<h2 class="text-center">Products</h2>
+<a class="btn btn-outline-success rounded-circle pb-3 pt-3" href="{{ path ('product_create') }}">NEW</a>
+<table class="table table-hover text-center mt-5">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Image</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Description</th>
+        <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+            <tr>
+                <th scope="row">{{product.id}}</th>
+                <td scope="row">{{product.name}}</td>
+                <td scope="row">{{product.catName.catName}}</td>
+                <td scope="row">
+                    <img src={{ asset ('image/' ~ product.image) }} width="200px" />
+                </td>
+                <td scope="row">{{product.price}}</td>
+                <td scope="row">{{product.quantity}}</td>
+                <td scope="row" width="250px">{{product.description}}</td>
+                <td scope="row">
+                    <a class="btn btn-primary  fas fa-sync-alt" href="{{ path('product_update', {'id' : product.id}) }}"></a>
+                    <a class="btn btn-danger fas fa-trash" href="{{ path('product_delete', {'id' : product.id}) }}" onclick = "return confirm ('Are you sure to delete ?')" ></a>
+                </td>
+            </tr>
+            
+        {% endfor %}
+    </tbody>
+</table>
+			
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+
+</style>
+
+<table class="table table-hover text-center mt-5">
+    {% if items | length > 0 %}
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Image</th>
+            <th scope="col">Unit Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in items %}
+            <tr>
+                <td scope="row">{{i.product.name}}</td>
+                <td scope="row">
+                    <img src={{ asset ('image/' ~ i.product.image) }} width="200px" />
+                </td>
+                <td scope="row">{{i.product.price}}</td>
+                <td scope="row">
+                    <input type="number" min="1" class="input-control" value="{{i.number}}" required="Không thể để trống" style="width:50px;">
+                
+                </td>
+                <td scope="row">{{i.product.price * i.number}}</td>
+                <td scope="row">
+                    <a class="btn btn-danger fas fa-trash" href="{{ path('cart_remove', {'id' : i.product.id}) }}"></a>
+                </td>
+            </tr>
+            
+        {% endfor %}
+    </tbody>
+    <tfoot>
+            <tr>
+                <td><a class="btn btn-outline-danger" href="">DELETE ALL</a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total:</td>
+                <td>{{ total }}</td>
+            </tr>
+    </tfoot>
+    {% else %}
+        <h2>No item in cart! </h2>
+    {% endif %}
+</table>
+			
+{% endblock %}

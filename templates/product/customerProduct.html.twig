@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+ul{
+    list-style: none;
+}
+ul, li{
+    display: inline-block
+}
+</style>
+
+<h2 class="text-center">Products</h2>
+
+    <ul>
+        {% for product in products %}
+            <li class="text-center" style="margin-right: 8rem; margin-bottom:5rem">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ asset ('image/' ~ product.image) }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.name}}</h5>
+                        <p class="card-text">${{product.price}}</p>
+                        <a href="{{ path('cartAdd', {'id' : product.id}) }}" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </li>
+            
+        {% endfor %}
+    </ul>
+			
+{% endblock %}
